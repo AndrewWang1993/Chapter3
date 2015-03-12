@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -30,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
@@ -56,19 +58,22 @@ public class MainActivity extends Activity {
 
             }
         });
-        try {  //Bug 
-            Field field = AbsListView.class.getDeclaredField("mFastScroller");
-            field.setAccessible(true);
-            Object object = field.get(listView);
-            field = field.getType().getDeclaredField("mThumbDrawable");
-            field.setAccessible(true);
-            Drawable drawable=(Drawable)field.get(object);
-            drawable=getResources().getDrawable(R.drawable.scroll_pic);
-            Log.v("OK","1");
-            field.set(object, drawable);
-        } catch (Exception e) {
-            Log.v("EXCPETION", e.getMessage());
-        }
+//        try {  //Bug
+//            Field field = AbsListView.class.getDeclaredField("mFastScroller");
+//            field.setAccessible(true);
+//            Object object = field.get(listView);
+//            field = field.getType().getDeclaredField("mThumbDrawable");
+//            field.setAccessible(true);
+//            Drawable drawable=(Drawable)field.get(object);
+//            drawable=getResources().getDrawable(R.drawable.scroll_pic);
+//            Log.v("OK","1");
+//            field.set(object, drawable);
+//        } catch (Exception e) {
+//            Log.v("EXCPETION", e.getMessage());
+//        }
+
+//    Intent 跳转
+
 
     }
 
@@ -190,4 +195,26 @@ public class MainActivity extends Activity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(this,requestCode+"  "+resultCode,Toast.LENGTH_LONG).show();
+    }
+
+    public void intent(View view) {
+//        Intent intent = new Intent(MainActivity.this, MainActivity2Activity.class);
+//        Bundle bundle=new Bundle();
+//        bundle.putString("key","vaule");
+//        intent.putExtras(bundle);
+//        startActivityForResult(intent, 1);
+
+
+        Intent intent = new Intent();
+        intent.setAction("aaa");
+        intent.addCategory("com.xiazdong.category");
+        intent.setData(Uri.parse("xiazdong://www.xiazdong.com/123"));
+        startActivity(intent);		//此方法中调用intent.addCategory("android.intent.category.DEFAULT");
+
+
+    }
 }

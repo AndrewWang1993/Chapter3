@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity2Activity extends Activity {
@@ -49,6 +50,9 @@ public class MainActivity2Activity extends Activity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+//        setResult(20);
+//        String s = getIntent().getExtras().getString("key", "null");
+//        Toast.makeText(this, s, Toast.LENGTH_LONG).show();
 
     }
 
