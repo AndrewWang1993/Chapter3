@@ -11,9 +11,11 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="match_parent"
         android:id="@+id/listview1"
+        android:footerDividersEnabled="true"
         android:fastScrollEnabled="true" />
+
 
     <Button
         android:id="@+id/button1"

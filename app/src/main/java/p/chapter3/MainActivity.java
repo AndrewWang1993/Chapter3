@@ -35,6 +35,8 @@ import android.widget.Toast;
 
 import java.lang.reflect.Field;
 
+import java.lang.reflect.Field;
+
 
 public class MainActivity extends Activity {
     TextView textView;
@@ -74,6 +76,20 @@ public class MainActivity extends Activity {
 
 //    Intent 跳转
 
+=======
+        try {
+            Field field = AbsListView.class.getDeclaredField("mFastScroller");
+            field.setAccessible(true);
+            Object object = field.get(listView);
+            field = field.getType().getDeclaredField("mThumbDrawable");
+            field.setAccessible(true);
+            Drawable drawable=(Drawable)field.get(object);
+            drawable=getResources().getDrawable(R.drawable.scroll_pic);
+            Log.v("OK","1");
+            field.set(object, drawable);
+        } catch (Exception e) {
+            Log.v("EXCPETION", e.getMessage());
+        }
 
     }
 
