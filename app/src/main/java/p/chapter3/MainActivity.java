@@ -3,50 +3,76 @@ package p.chapter3;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
-import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ClickableSpan;
-import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 
 public class MainActivity extends Activity {
     TextView textView;
     String[] strings;
+    ListView listView;
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        strings = new String[]{"a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5", "a1", "a2", "a3", "a4", "a5"};
 //        textviewWidget();
 //        AutoComplete();
+        listView = (ListView) findViewById(R.id.listview1);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, strings);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+        try {  //Bug 
+            Field field = AbsListView.class.getDeclaredField("mFastScroller");
+            field.setAccessible(true);
+            Object object = field.get(listView);
+            field = field.getType().getDeclaredField("mThumbDrawable");
+            field.setAccessible(true);
+            Drawable drawable=(Drawable)field.get(object);
+            drawable=getResources().getDrawable(R.drawable.scroll_pic);
+            Log.v("OK","1");
+            field.set(object, drawable);
+        } catch (Exception e) {
+            Log.v("EXCPETION", e.getMessage());
+        }
+
     }
 
     private void AutoComplete() {
-        strings = new String[]{"a1", "a2", "a3", "a4", "a5"};
         LinearLayout ll = new LinearLayout(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         ll.setOrientation(LinearLayout.VERTICAL);
@@ -80,7 +106,7 @@ public class MainActivity extends Activity {
     }
 
     private void textviewWidget() {
-        textView = (TextView) findViewById(R.id.textview1);
+//        textView = (TextView) findViewById(R.id.textview1);
 //   通过设置CharSequence设置Textview图像
 //        String html = "<body> <h1>This is a heading</h1>\n" +
 //                "<h2>This is a heading</h2>\n" +
